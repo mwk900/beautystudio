@@ -1,26 +1,49 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #f8f0ea;
+  --foreground: #2f2927;
+  --cream: #fff9f5;
+  --blush: #f4ddd8;
+  --rose: #d8a7a2;
+  --gold: #b7926b;
+  --surface: #fffdfb;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --font-sans: var(--font-body-sans);
+  --font-heading: var(--font-heading-serif);
+  --color-cream: var(--cream);
+  --color-blush: var(--blush);
+  --color-rose: var(--rose);
+  --color-gold: var(--gold);
+  --color-surface: var(--surface);
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-body-sans), "Segoe UI", sans-serif;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-heading-serif), Georgia, serif;
+  letter-spacing: 0.01em;
+}
+
+* {
+  scroll-behavior: smooth;
+}
+
+.soft-shadow {
+  box-shadow: 0 14px 40px rgba(110, 86, 72, 0.12);
+}
+
+.warm-gradient {
+  background: linear-gradient(140deg, #fff9f5 0%, #f4ddd8 58%, #edd0c6 100%);
 }
