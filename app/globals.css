@@ -1,31 +1,36 @@
 @import "tailwindcss";
 
 :root {
-  --background: #f8f0ea;
-  --foreground: #2f2927;
-  --cream: #fff9f5;
-  --blush: #f4ddd8;
-  --rose: #d8a7a2;
-  --gold: #b7926b;
-  --surface: #fffdfb;
+  --bg: #f4ede4;
+  --bg-elevated: #fff7ef;
+  --text: #2f2622;
+  --muted: #6e5a4e;
+  --border: rgba(255, 246, 236, 0.66);
+  --accent: #c6a57f;
+  --accent-2: #ba8f83;
+  --button: #b98a61;
+  --button-text: #fff9f3;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
+  --color-bg: var(--bg);
+  --color-bg-elevated: var(--bg-elevated);
+  --color-text: var(--text);
+  --color-muted: var(--muted);
+  --color-border: var(--border);
+  --color-accent: var(--accent);
+  --color-accent-2: var(--accent-2);
+  --color-button: var(--button);
+  --color-button-text: var(--button-text);
   --font-sans: var(--font-body-sans);
   --font-heading: var(--font-heading-serif);
-  --color-cream: var(--cream);
-  --color-blush: var(--blush);
-  --color-rose: var(--rose);
-  --color-gold: var(--gold);
-  --color-surface: var(--surface);
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
+  background: var(--bg);
+  color: var(--text);
   font-family: var(--font-body-sans), "Segoe UI", sans-serif;
+  line-height: 1.65;
 }
 
 h1,
@@ -34,6 +39,7 @@ h3,
 h4 {
   font-family: var(--font-heading-serif), Georgia, serif;
   letter-spacing: 0.01em;
+  line-height: 1.1;
 }
 
 * {
@@ -41,9 +47,145 @@ h4 {
 }
 
 .soft-shadow {
-  box-shadow: 0 14px 40px rgba(110, 86, 72, 0.12);
+  box-shadow: 0 22px 58px rgba(52, 38, 30, 0.16);
 }
 
-.warm-gradient {
-  background: linear-gradient(140deg, #fff9f5 0%, #f4ddd8 58%, #edd0c6 100%);
+.eyebrow {
+  color: var(--accent-2);
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  font-size: 0.68rem;
+  font-weight: 600;
+}
+
+.panel {
+  background: color-mix(in srgb, var(--bg-elevated) 92%, #ffffff 8%);
+  border: 1px solid var(--border);
+  box-shadow: 0 15px 42px rgba(73, 53, 43, 0.09);
+}
+
+.glass-warm {
+  background: rgba(255, 248, 240, 0.67);
+  border: 1px solid rgba(255, 255, 255, 0.36);
+  backdrop-filter: blur(14px);
+  box-shadow: 0 24px 64px rgba(34, 23, 16, 0.22);
+}
+
+.menu-glass {
+  background: rgba(255, 248, 240, 0.76);
+  border: 1px solid rgba(255, 255, 255, 0.54);
+  border-radius: 9999px;
+  backdrop-filter: blur(14px) saturate(1.06);
+  box-shadow: 0 12px 32px rgba(44, 30, 22, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.72);
+}
+
+.brand-glass {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  overflow: hidden;
+  border-radius: 9999px;
+  padding: 0.48rem 1rem 0.52rem;
+  background: linear-gradient(145deg, rgba(255, 249, 242, 0.88) 0%, rgba(245, 227, 208, 0.6) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.56);
+  backdrop-filter: blur(16px) saturate(1.07);
+  box-shadow: 0 14px 36px rgba(39, 27, 19, 0.22), inset 0 1px 0 rgba(255, 255, 255, 0.78);
+}
+
+.brand-glass::after {
+  content: "";
+  position: absolute;
+  top: 0.12rem;
+  left: 0.45rem;
+  right: 38%;
+  height: 42%;
+  border-radius: 9999px;
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0.62), rgba(255, 255, 255, 0));
+  pointer-events: none;
+}
+
+.nav-book-cta {
+  box-shadow: 0 10px 24px rgba(59, 38, 24, 0.3), inset 0 1px 0 rgba(255, 241, 226, 0.55);
+  white-space: nowrap;
+}
+
+.hero-grade {
+  background: linear-gradient(
+    116deg,
+    rgba(71, 48, 35, 0.37) 0%,
+    rgba(132, 95, 68, 0.31) 44%,
+    rgba(244, 226, 204, 0.21) 100%
+  );
+}
+
+.hero-vignette {
+  background: radial-gradient(circle at 72% 34%, rgba(255, 239, 223, 0) 20%, rgba(20, 14, 9, 0.44) 100%);
+}
+
+.btn-primary {
+  background: var(--button);
+  color: var(--button-text);
+  border: 1px solid rgba(255, 241, 226, 0.62);
+  border-radius: 9999px;
+  padding: 0.76rem 1.5rem;
+  font-size: 0.82rem;
+  font-weight: 600;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  transition: filter 0.18s ease, transform 0.18s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-primary:hover {
+  filter: brightness(1.05);
+  transform: translateY(-1px);
+}
+
+.btn-secondary {
+  background: rgba(255, 248, 240, 0.4);
+  color: var(--text);
+  border: 1px solid rgba(255, 243, 230, 0.72);
+  border-radius: 9999px;
+  padding: 0.76rem 1.5rem;
+  font-size: 0.82rem;
+  font-weight: 600;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  transition: background-color 0.18s ease, transform 0.18s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-secondary:hover {
+  background: rgba(255, 248, 240, 0.62);
+  transform: translateY(-1px);
+}
+
+.field {
+  border-radius: 0.9rem;
+  border: 1px solid color-mix(in srgb, var(--accent) 36%, #fff 64%);
+  background: rgba(255, 252, 248, 0.9);
+  color: var(--text);
+  font-size: 0.92rem;
+  padding: 0.58rem 0.85rem;
+  outline: none;
+}
+
+.field:focus {
+  border-color: var(--button);
+}
+
+@media (max-width: 767px) {
+  .brand-glass {
+    padding: 0.42rem 0.86rem 0.46rem;
+  }
+
+  .nav-book-cta {
+    padding-inline: 1.05rem;
+    font-size: 0.73rem;
+    letter-spacing: 0.06em;
+  }
 }

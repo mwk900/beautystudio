@@ -1,22 +1,23 @@
 import type { Metadata } from "next";
-import { Cormorant_Garamond, Manrope } from "next/font/google";
+import { DM_Sans, Playfair_Display } from "next/font/google";
 import "./globals.css";
 
-const headingSerif = Cormorant_Garamond({
+const headingSerif = Playfair_Display({
   variable: "--font-heading-serif",
   subsets: ["latin"],
   weight: ["500", "600", "700"],
 });
 
-const bodySans = Manrope({
+const bodySans = DM_Sans({
   variable: "--font-body-sans",
   subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
 });
 
 export const metadata: Metadata = {
-  title: "Premium Hair and Beauty Studio | Velvet Bloom",
+  title: "Velvet Bloom Studio | Luxury Colour and Styling",
   description:
-    "Professional hair styling, colour and treatments in a welcoming salon environment.",
+    "Boutique salon appointments for colour, precision cuts and polished styling in Nottingham.",
 };
 
 export default function RootLayout({
