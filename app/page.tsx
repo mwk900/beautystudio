@@ -1,6 +1,7 @@
 import type { CSSProperties, ReactNode } from "react";
 import Image from "next/image";
 import BookingForm from "./booking-form";
+import MobileSectionPill from "./mobile-section-pill";
 import SiteHeader from "./site-header";
 
 const heroImage =
@@ -139,7 +140,7 @@ export default function Home() {
           <div className="relative mx-auto flex min-h-[92svh] w-full max-w-6xl items-end px-4 pb-10 pt-32 sm:px-6 md:items-center md:px-10">
             <Reveal className="w-full max-w-xl md:ml-auto md:mr-6" delay={0.06}>
               <div className="glass-warm rounded-[1.85rem] p-6 text-[#2f2622] sm:p-8 md:rounded-[2rem]">
-                <p className="eyebrow text-[#8a6755]">Luxury Colour Studio</p>
+                <p className="eyebrow text-[#5d4337]">Your local hairdresser</p>
                 <h1 className="mt-3 text-[2.35rem] leading-[1.02] sm:text-[3rem]">A warmer way to wear colour.</h1>
                 <p className="mt-4 max-w-[30rem] text-base leading-relaxed text-[#554338] sm:text-lg">
                   Boutique appointments shaped around tone, texture and polished confidence.
@@ -397,6 +398,7 @@ export default function Home() {
       <footer className="border-t border-[rgba(193,160,133,0.28)] px-4 py-6 text-center text-[0.67rem] uppercase tracking-[0.16em] text-muted sm:px-6 md:px-10">
         Velvet Bloom Beauty Studio - Fictional Portfolio Brand
       </footer>
+      <MobileSectionPill />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessSchema) }} />
     </div>
   );

@@ -28,7 +28,9 @@ export default function SiteHeader() {
           aria-label="Back to top"
         >
           <span className="brand-glass__title">Velvet Bloom</span>
-          <span className="brand-glass__hint">Back to Top ^</span>
+          <span className="brand-glass__hint">
+            Back to Top
+          </span>
         </a>
         <div className="flex items-center gap-2.5 sm:gap-3 md:gap-4">
           <nav className="menu-glass hidden items-center gap-6 px-4 py-2 text-[0.73rem] font-semibold uppercase tracking-[0.15em] text-[#2f241e] md:flex">
