@@ -1,9 +1,7 @@
-"use client";
-
-import type { FormEvent, ReactNode } from "react";
-import { useState } from "react";
-import { motion } from "framer-motion";
+import type { CSSProperties, ReactNode } from "react";
 import Image from "next/image";
+import BookingForm from "./booking-form";
+import SiteHeader from "./site-header";
 
 const heroImage =
   "https://images.pexels.com/photos/7195812/pexels-photo-7195812.jpeg?auto=compress&cs=tinysrgb&w=2200";
@@ -59,6 +57,8 @@ const services = [
   },
 ] as const;
 
+const bookingServiceOptions = services.map(({ title }) => ({ title }));
+
 const pricing = [
   { service: "Cut and Finish", from: "£52" },
   { service: "Colour Session", from: "£88" },
@@ -109,56 +109,19 @@ const localBusinessSchema = {
 };
 
 function Reveal({ children, className, delay = 0 }: { children: ReactNode; className?: string; delay?: number }) {
+  const revealStyle = delay > 0 ? ({ "--reveal-delay": `${delay}s` } as CSSProperties) : undefined;
+
   return (
-    <motion.div
-      className={className}
-      initial={{ opacity: 0, y: 14 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.22 }}
-      transition={{ duration: 0.42, delay, ease: "easeOut" }}
-    >
+    <div className={className ? `reveal ${className}` : "reveal"} style={revealStyle}>
       {children}
-    </motion.div>
+    </div>
   );
 }
 
 export default function Home() {
-  const [thankYouName, setThankYouName] = useState("");
-
-  const handleBookingSubmit = (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    const bookingForm = event.currentTarget;
-    const formData = new FormData(bookingForm);
-    const fullName = formData.get("name")?.toString().trim() ?? "";
-    setThankYouName(fullName.split(" ")[0] || "there");
-    bookingForm.reset();
-  };
-
   return (
-    <div className="bg-bg text-text">
-      <header className="fixed inset-x-0 top-0 z-50">
-        <div className="mx-auto flex w-full max-w-6xl items-center justify-between px-4 pb-3 pt-[max(env(safe-area-inset-top),0.85rem)] sm:px-6 md:px-10">
-          <a href="#" className="brand-glass font-heading text-xl tracking-[0.02em] text-[#2e221c] sm:text-2xl">
-            Velvet Bloom
-          </a>
-          <div className="flex items-center gap-2.5 sm:gap-3 md:gap-4">
-            <nav className="menu-glass hidden items-center gap-6 px-4 py-2 text-[0.73rem] font-semibold uppercase tracking-[0.15em] text-[#2f241e] md:flex">
-              <a href="#gallery" className="transition-opacity hover:opacity-75">
-                Journal
-              </a>
-              <a href="#services" className="transition-opacity hover:opacity-75">
-                Services
-              </a>
-              <a href="#contact" className="transition-opacity hover:opacity-75">
-                Contact
-              </a>
-            </nav>
-            <a href="#book-now" className="btn-primary nav-book-cta">
-              Book Appointment
-            </a>
-          </div>
-        </div>
-      </header>
+    <div id="top" className="bg-bg text-text">
+      <SiteHeader />
 
       <main>
         <section className="relative isolate min-h-[92svh] overflow-hidden">
@@ -209,10 +172,8 @@ export default function Home() {
 
           <div className="mt-8 grid gap-4 md:grid-cols-12 md:auto-rows-[170px]">
             {collage.map((image, index) => (
-              <Reveal key={image.title} delay={index * 0.06}>
-                <article
-                  className={`soft-shadow group relative overflow-hidden rounded-[1.6rem] border border-[rgba(255,244,233,0.7)] ${image.layout}`}
-                >
+              <Reveal key={image.title} delay={index * 0.06} className={`${image.layout} w-full`}>
+                <article className="soft-shadow group relative h-full w-full overflow-hidden rounded-[1.6rem] border border-[rgba(255,244,233,0.7)]">
                   <Image
                     src={image.src}
                     alt={image.alt}
@@ -369,66 +330,7 @@ export default function Home() {
                   </blockquote>
                 </div>
 
-                <form
-                  onSubmit={handleBookingSubmit}
-                  className="rounded-[1.7rem] border border-[rgba(208,175,146,0.45)] bg-[rgba(255,252,248,0.84)] p-5"
-                >
-                  <div className="grid gap-3 sm:grid-cols-2">
-                    <label className="flex flex-col gap-1 text-sm">
-                      <span className="font-medium text-[#4d3c34]">Name</span>
-                      <input name="name" type="text" required className="field" />
-                    </label>
-
-                    <label className="flex flex-col gap-1 text-sm">
-                      <span className="font-medium text-[#4d3c34]">Phone</span>
-                      <input name="phone" type="tel" required className="field" />
-                    </label>
-
-                    <label className="flex flex-col gap-1 text-sm sm:col-span-2">
-                      <span className="font-medium text-[#4d3c34]">Email</span>
-                      <input name="email" type="email" required className="field" />
-                    </label>
-
-                    <label className="flex flex-col gap-1 text-sm">
-                      <span className="font-medium text-[#4d3c34]">Service</span>
-                      <select name="service" required defaultValue="" className="field">
-                        <option value="" disabled>
-                          Select a service
-                        </option>
-                        {services.map((service) => (
-                          <option key={service.title} value={service.title}>
-                            {service.title}
-                          </option>
-                        ))}
-                      </select>
-                    </label>
-
-                    <label className="flex flex-col gap-1 text-sm">
-                      <span className="font-medium text-[#4d3c34]">Preferred Date</span>
-                      <input name="date" type="date" required className="field" />
-                    </label>
-
-                    <label className="flex flex-col gap-1 text-sm sm:col-span-2">
-                      <span className="font-medium text-[#4d3c34]">Notes</span>
-                      <textarea
-                        name="notes"
-                        rows={3}
-                        className="field"
-                        placeholder="Share your colour goals, current tone or any preferences."
-                      />
-                    </label>
-                  </div>
-
-                  <button type="submit" className="btn-primary mt-4 w-full">
-                    Send Booking Request
-                  </button>
-
-                  {thankYouName ? (
-                    <p className="mt-3 text-sm text-[#5d493f]">
-                      Thanks {thankYouName}, your request is in. We will confirm shortly.
-                    </p>
-                  ) : null}
-                </form>
+                <BookingForm services={bookingServiceOptions} />
               </div>
             </div>
           </Reveal>

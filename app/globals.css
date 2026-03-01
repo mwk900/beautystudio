@@ -10,6 +10,9 @@
   --accent-2: #ba8f83;
   --button: #b98a61;
   --button-text: #fff9f3;
+  --font-body-sans: "Avenir Next", "Nunito Sans", "Segoe UI", sans-serif;
+  --font-heading-serif: "Iowan Old Style", "Baskerville", "Times New Roman", serif;
+  --anchor-offset: calc(env(safe-area-inset-top) + 7.1rem);
 }
 
 @theme inline {
@@ -42,8 +45,32 @@ h4 {
   line-height: 1.1;
 }
 
-* {
+html {
   scroll-behavior: smooth;
+}
+
+section[id] {
+  scroll-margin-top: var(--anchor-offset);
+}
+
+@media (min-width: 768px) {
+  :root {
+    --anchor-offset: calc(env(safe-area-inset-top) + 7.9rem);
+  }
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(14px);
+  animation: reveal-up 0.42s ease-out forwards;
+  animation-delay: var(--reveal-delay, 0s);
+}
+
+@keyframes reveal-up {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .soft-shadow {
@@ -59,6 +86,7 @@ h4 {
 }
 
 .panel {
+  background: rgba(255, 247, 239, 0.96);
   background: color-mix(in srgb, var(--bg-elevated) 92%, #ffffff 8%);
   border: 1px solid var(--border);
   box-shadow: 0 15px 42px rgba(73, 53, 43, 0.09);
@@ -83,6 +111,9 @@ h4 {
   position: relative;
   display: inline-flex;
   align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 0;
   overflow: hidden;
   border-radius: 9999px;
   padding: 0.48rem 1rem 0.52rem;
@@ -90,6 +121,7 @@ h4 {
   border: 1px solid rgba(255, 255, 255, 0.56);
   backdrop-filter: blur(16px) saturate(1.07);
   box-shadow: 0 14px 36px rgba(39, 27, 19, 0.22), inset 0 1px 0 rgba(255, 255, 255, 0.78);
+  transition: padding 0.24s ease, box-shadow 0.24s ease, transform 0.24s ease;
 }
 
 .brand-glass::after {
@@ -104,8 +136,42 @@ h4 {
   pointer-events: none;
 }
 
+.brand-glass__title {
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.brand-glass__hint {
+  max-height: 0;
+  opacity: 0;
+  margin-top: 0;
+  overflow: hidden;
+  font-size: 0.56rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  line-height: 1;
+  text-transform: uppercase;
+  color: rgba(77, 58, 48, 0.84);
+  transform: translateY(-2px);
+  transition: max-height 0.24s ease, opacity 0.24s ease, margin-top 0.24s ease, transform 0.24s ease;
+}
+
+.brand-glass--expanded {
+  padding-top: 0.5rem;
+  padding-bottom: 0.56rem;
+  box-shadow: 0 16px 40px rgba(37, 24, 17, 0.24), inset 0 1px 0 rgba(255, 255, 255, 0.8);
+  transform: translateY(-1px);
+}
+
+.brand-glass--expanded .brand-glass__hint {
+  max-height: 0.9rem;
+  opacity: 1;
+  margin-top: 0.24rem;
+  transform: translateY(0);
+}
+
 .nav-book-cta {
-  box-shadow: 0 10px 24px rgba(59, 38, 24, 0.3), inset 0 1px 0 rgba(255, 241, 226, 0.55);
+  box-shadow: 0 10px 24px rgba(50, 31, 20, 0.24);
   white-space: nowrap;
 }
 
@@ -123,24 +189,26 @@ h4 {
 }
 
 .btn-primary {
-  background: var(--button);
-  color: var(--button-text);
-  border: 1px solid rgba(255, 241, 226, 0.62);
+  background: linear-gradient(135deg, #f2d3b2 0%, #dfb187 48%, #cd9166 100%);
+  color: #1f1712;
+  border: none;
   border-radius: 9999px;
   padding: 0.76rem 1.5rem;
   font-size: 0.82rem;
-  font-weight: 600;
+  font-weight: 700;
   letter-spacing: 0.07em;
   text-transform: uppercase;
-  transition: filter 0.18s ease, transform 0.18s ease;
+  transition: filter 0.18s ease, transform 0.18s ease, box-shadow 0.18s ease;
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  box-shadow: 0 12px 30px rgba(56, 35, 23, 0.22);
 }
 
 .btn-primary:hover {
-  filter: brightness(1.05);
+  filter: brightness(1.06);
   transform: translateY(-1px);
+  box-shadow: 0 14px 34px rgba(56, 35, 23, 0.26);
 }
 
 .btn-secondary {
@@ -166,6 +234,7 @@ h4 {
 
 .field {
   border-radius: 0.9rem;
+  border: 1px solid rgba(221, 193, 166, 0.8);
   border: 1px solid color-mix(in srgb, var(--accent) 36%, #fff 64%);
   background: rgba(255, 252, 248, 0.9);
   color: var(--text);
@@ -183,9 +252,47 @@ h4 {
     padding: 0.42rem 0.86rem 0.46rem;
   }
 
+  .brand-glass--expanded {
+    padding-top: 0.46rem;
+    padding-bottom: 0.52rem;
+  }
+
+  .brand-glass__hint {
+    font-size: 0.52rem;
+    letter-spacing: 0.12em;
+  }
+
   .nav-book-cta {
     padding-inline: 1.05rem;
     font-size: 0.73rem;
     letter-spacing: 0.06em;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .reveal {
+    opacity: 1;
+    transform: none;
+    animation: none;
+  }
+
+  .btn-primary,
+  .btn-secondary,
+  .brand-glass,
+  .brand-glass__hint {
+    transition: none;
+  }
+
+  .brand-glass--expanded {
+    transform: none;
+  }
+
+  .btn-primary:hover,
+  .btn-secondary:hover {
+    transform: none;
   }
 }
